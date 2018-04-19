@@ -1,0 +1,16 @@
+@import '../../../scss/variables';
+
+.category{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $trac-yellow;
+    background-color: $trac-lightblue;
+    h3{
+        padding: 5px 15px;
+        color: $dark;
+        cursor: pointer;
+        &:hover{
+            color: $trac-red;
+        }
+    }
+}
