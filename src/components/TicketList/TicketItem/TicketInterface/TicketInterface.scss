@@ -1,1 +1,78 @@
 @import '../../../../scss/variables';
+
+.ticket-interface-main{
+  margin: 20px 40px;
+  border: 1px solid $lightgrey;
+  border-radius: 2px;
+
+  .ticket-essential-info{
+    padding: 20px;
+    span{
+      padding: 0px 10px 0px 0px;
+    }
+  }
+
+  .flexed-info{
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    align-items: flex-start;
+  }
+
+  .side-info-bar{
+    float: right;
+    margin: 0 20px;
+    width: 25%;
+    border: 1px solid $lightgrey;
+    background-color: $trac-lightblue;
+
+    h3{
+      padding: 0px 10px;
+      text-align: center;
+    }
+    p{
+      padding: 5px;
+      display: inline-block;
+      text-align: center;
+      width: 45%;
+      span{
+        font-weight: 600;
+      }
+    }
+  }
+
+  .comments-section{
+    border: 1px dotted $lightgrey;
+    width: 75%;
+    .comment{
+      border: 1px solid $lightgrey;
+      .comment-details{
+        display: flex;
+        justify-content: space-between;
+        padding: 5px;
+        background-color: $trac-lightblue;
+      }
+      .comment-text{
+        padding: 15px;
+      }
+    }
+    .comment-input{
+      width: 75%;
+    }
+    button{
+      padding: 10px;
+      border-radius: 3px;
+      background-color: $trac-lightblue;
+      color: $trac-darkblue;
+      font-weight: 600;
+      font-size: 18px;
+      text-transform: uppercase;
+      outline: none;
+      cursor: pointer;
+      border: 0;
+      &:hover{
+        background-color: $trac-lightgreen;
+      }
+    }
+  }
+}

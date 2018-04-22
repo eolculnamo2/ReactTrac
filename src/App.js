@@ -21,7 +21,28 @@ class App extends React.Component{
                         createDate: "01/01/2018",
                         category: 'Styles',
                         dueDate: "01/01/2019",
-                        description: "Make the h1 element on our homepage something different"
+                        status: "open",
+                        description: "Make the h1 element on our homepage something different",
+                        comments: [
+                          {
+                            author: "Rob",
+                            timestamp:"JStimestamp",
+                            status: "Open",
+                            comment: "How about we change the h1 to Hello World?"
+                          },
+                          {
+                            author: "Bre",
+                            timestamp:"JStimestamp",
+                            status: "Open",
+                            comment: "I think Hello WORLD! would be better"
+                          },
+                          {
+                            author: "Rob",
+                            timestamp:"JStimestamp",
+                            status: "In Progress",
+                            comment: "Should we change the color?"
+                          }
+                        ]
                     },
                     {
                         name: "Fix JavaScript Error",
@@ -31,6 +52,8 @@ class App extends React.Component{
                         createDate: "01/01/2018",
                         category: 'Apps',
                         dueDate: "01/01/2019",
+                        status: "open",
+                        comments: [],
                         description: "JavaScript keeps breaking on this page!"
                     },
                     {
@@ -41,6 +64,8 @@ class App extends React.Component{
                         createDate: "01/01/2018",
                         category: 'Styles',
                         dueDate: "01/01/2019",
+                        status: "open",
+                        comments: [],
                         description: "Modal does not show when button is clicked. Please fix."
                     }
                 ]
@@ -80,7 +105,6 @@ class App extends React.Component{
                 )
         }
         else if(this.state.currentPage == "ticket-list"){
-          //currentList sends filter name to TicketList
             return (
                     <div>
                         <Menu
@@ -96,7 +120,6 @@ class App extends React.Component{
                 )
         }
         else if(this.state.currentPage == "ticket-interface"){
-          //currentList sends filter name to TicketList
             return (
                     <div>
                         <Menu
