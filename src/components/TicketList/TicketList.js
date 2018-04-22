@@ -3,50 +3,11 @@ import TicketItem from './TicketItem/TicketItem';
 import './TicketList.scss';
 
 class TicketList extends React.Component{
-    constructor(){
-        super()
-        this.state={
-            tickets: [
-                {
-                    name: "Change h1 element",
-                    assignedTo: "Rob",
-                    assignedBy: "Bre",
-                    priority: "Low",
-                    createDate: "01/01/2018",
-                    dueDate: "01/01/2019"
-                },
-                {
-                    name: "Fix JavaScript Error",
-                    assignedTo: "Rob",
-                    assignedBy: "Bre",
-                    priority: "Medium",
-                    createDate: "01/01/2018",
-                    dueDate: "01/01/2019"
-                },
-                {
-                    name: "Broken Modal",
-                    assignedTo: "Rob",
-                    assignedBy: "Bre",
-                    priority: "Medium",
-                    createDate: "01/01/2018",
-                    dueDate: "01/01/2019"
-                }
-            ]
-        }
-    }
-    componentDidMount(){
-     /*    fetch("#")
-        .then((response)=>{
-            return response.json()
-        })
-        .then((data)=>{
-
-        }) */
-    }
     render(){
         return(
             <div className="ticketlist-main-div">
-                {this.state.tickets.map((x)=>{
+                {this.props.tickets.map((x)=>{
+                  if(x.category == this.props.currentList)
                     return(
                         <TicketItem
                             name={x.name}
@@ -55,6 +16,8 @@ class TicketList extends React.Component{
                             priority={x.priority}
                             createDate={x.createDate}
                             dueDate={x.dueDate}
+                            description={x.description}
+                            changePage={this.props.changePage.bind(this,'ticket-interface',this.props.currentList,x.name)}
                                 />
                     )
                 })}

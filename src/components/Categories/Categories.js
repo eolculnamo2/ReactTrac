@@ -8,15 +8,15 @@ class Categories extends React.Component{
         this.state={
             categoryArray: [
                 {
-                    title: "Apps",
+                    categoryName: "Apps",
                     number: 38
                 },
                 {
-                    title: "Styles",
+                    categoryName: "Styles",
                     number: 24
                 },
                 {
-                    title: "Website",
+                    categoryName: "Website",
                     number: 28
                 }
             ]
@@ -29,7 +29,7 @@ class Categories extends React.Component{
 
         })
         .then((data)=>{
-    
+
         })
     }
     mapArray(){
@@ -38,9 +38,10 @@ class Categories extends React.Component{
                 {this.state.categoryArray.map((x,i)=>{
                     return(
                         <div>
-                            <Category 
-                                title={x.title}
+                            <Category
+                                categoryName={x.categoryName}
                                 ticketNumber={x.number}
+                                changePage={this.props.changePage.bind(this,'ticket-list', x.categoryName)}
                                 />
                             </div>
                     )

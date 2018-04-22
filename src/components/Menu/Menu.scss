@@ -1,6 +1,7 @@
 @import '../../scss/variables';
 body{
     margin: 0;
+    color: $dark;
 }
 .menu{
     display: flex;
@@ -12,6 +13,7 @@ body{
         margin: 0;
         color: $trac-yellow;
         align-self: center;
+        cursor: pointer;
     }
     .options{
         display: flex;
@@ -19,7 +21,9 @@ body{
         justify-content: space-around;
         width: 50%;
         li{
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             cursor: pointer;
+            text-transform: uppercase;
             &:hover{
                 color: $trac-lightblue;
             }
