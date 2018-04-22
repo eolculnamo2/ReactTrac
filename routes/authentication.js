@@ -10,8 +10,6 @@ var Strategy = require('passport-local').Strategy;
 //models
 var User = require('../models/User');
 
-router.use(express.static('build'));
-
 router.use(cookieSession({
   name: 'Authentication',
   maxAge: 60*60*1000,
@@ -83,7 +81,6 @@ router.get('/logout',(req,res)=>{
 router.get('/checkLogin',(req,res)=>{
   console.log(req.user)
   if(req.user){
-    console.log("checked and in")
     res.json({name: 'authenticated'})
   }
   else if(!req.user){

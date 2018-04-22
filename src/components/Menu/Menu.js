@@ -2,6 +2,17 @@ import React from 'react';
 import './Menu.scss';
 
 class Menu extends React.Component {
+  test(){
+    var load = {
+      dummy: 'dummy'
+    }
+    fetch('/posts/newTicket',{
+        method: "POST",
+        body: JSON.stringify(load),
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin"
+      })
+  }
     logout(){
       fetch('/authenticate/logout')
       .then((response)=>{
@@ -17,7 +28,7 @@ class Menu extends React.Component {
             <div className="menu">
                 <h1 onClick={()=>{this.props.changePage('categories')}}>JTrac Clone</h1>
                 <ul className="options">
-                    <li>
+                    <li onClick={this.test.bind(this)}>
                         My Tickets
                     </li>
                     <li>
