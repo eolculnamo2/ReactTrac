@@ -12,7 +12,7 @@ class Login extends React.Component {
         var load;
 
         if(this.state.register){
-            url = '/post/register';
+            uri = '/authenticate/register';
             load = {
                 username: this.refs.newUser.value,
                 password: this.refs.newPassword.value,
@@ -21,7 +21,7 @@ class Login extends React.Component {
             }
         }
         else{
-            uri = '/post/login'
+            uri = '/authenticate/login'
             load = {
                 username: this.refs.username.value,
                 password: this.refs.password.value
@@ -31,9 +31,26 @@ class Login extends React.Component {
         fetch(uri,{
             method: "POST",
             body: JSON.stringify(load),
-            headers: { "Content-Type": "application/json" }, 
+            headers: { "Content-Type": "application/json" },
             credentials: "same-origin"
-        });
+          })
+        .then((response)=>{
+          return response.json()
+        })
+        .then((data)=>{
+          if(data.name == 'UserExistsError'){
+            alert('User name already exists')
+          }
+          else if(data.name == 'authenticated'){
+            this.props.changePage('categories',null,null,true)
+          }
+          else if(data.name == 'invalid-credentials'){
+            alert('Invalid Credentials')
+          }
+          else{
+            alert('Authentication Error')
+          }
+        })
 
     }
     registration(){

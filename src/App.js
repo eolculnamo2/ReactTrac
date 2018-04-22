@@ -9,9 +9,10 @@ class App extends React.Component{
     constructor(){
         super()
         this.state={
-            currentPage: "categories",
+            authenticated: false,
+            currentPage: "login",
             currentList: "",
-            currentTicket: "test",
+            currentTicket: "",
             tickets: [
                     {
                         name: "Change h1 element",
@@ -73,10 +74,20 @@ class App extends React.Component{
         this.handleChangePage=this.handleChangePage.bind(this);
     }
     componentDidMount(){
-      //Will house fetch request to determine whether or not user is logged in
+      fetch('/authenticate/checkLogin')
+      .then((response)=>{
+        return response.json();
+      })
+      .then((data)=>{
+          this.setState({currentPage: data.name == 'authenticated' ? 'categories' : 'login',
+                         authenticated: data.name == 'authenticated' ? true : false})
+      })
     }
-    handleChangePage(page,list,ticket){
-      this.setState({currentPage: page,
+    handleChangePage(page,list,ticket,authenticate){
+      console.log(this.state.authenticated)
+      this.setState({
+                     authenticated: authenticate != undefined ? authenticate : this.state.authenticated,
+                     currentPage: this.state.authenticated || authenticate == true ? page : 'login',
                      currentList: list != undefined ? list : "",
                      currentTicket: ticket != undefined ? ticket : ""
                    })
@@ -88,7 +99,9 @@ class App extends React.Component{
                     <Menu
                       changePage={this.handleChangePage}
                       />
-                    <Login />
+                    <Login
+                      changePage={this.handleChangePage}
+                     />
                 </div>
             )
         }

@@ -2,6 +2,16 @@ import React from 'react';
 import './Menu.scss';
 
 class Menu extends React.Component {
+    logout(){
+      fetch('/authenticate/logout')
+      .then((response)=>{
+        return response.json();
+      })
+      .then((data)=>{
+        console.log(data.name)
+        data.name == 'success' ? this.props.changePage('login') : alert('Logout Error')
+      })
+    }
     render(){
         return(
             <div className="menu">
@@ -16,7 +26,7 @@ class Menu extends React.Component {
                     <li>
                         Settings
                     </li>
-                    <li>
+                    <li onClick = {this.logout.bind(this)}>
                         Logout
                     </li>
                 </ul>

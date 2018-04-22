@@ -11,7 +11,7 @@ class TicketInterface extends React.Component{
   componentWillMount(){
     for(var i=0; i < this.props.tickets.length; i++){
       if(this.props.tickets[i].name == this.props.currentTicket){
-        this.setState({ticket: this.props.tickets[i]},()=>{alert(JSON.stringify(this.state.ticket.comments))});
+        this.setState({ticket: this.props.tickets[i]});
         break;
       }
     }
