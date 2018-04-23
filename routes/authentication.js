@@ -34,13 +34,10 @@ router.post('/register', (req, res)=>{
                              authority: false,
                              }), req.body.password, (err, account)=>{
         if (err) {
-            console.log(err.name)
-            console.log("Unauthenticated")
             res.send(err)
         }
         else{
         passport.authenticate('local')(req, res, ()=>{
-          console.log("authenticated")
             res.send({
                 name: 'authenticated'
             });
@@ -56,16 +53,14 @@ router.post('/register', (req, res)=>{
 
 //Login
 router.post('/login', passport.authenticate('local'), function(req, res) {
-  console.log(req.user)
   if(req.user){
-    console.log('login success')
+
     res.send({
       name: 'authenticated'
     });
 
   }
   else{
-    console.log('login fail')
     res.send({
       name: 'invalid-credentials'
     })
@@ -79,12 +74,10 @@ router.get('/logout',(req,res)=>{
 });
 
 router.get('/checkLogin',(req,res)=>{
-  console.log(req.user)
   if(req.user){
     res.json({name: 'authenticated'})
   }
   else if(!req.user){
-    console.log('failed')
     res.json({name: 'Unauthenticated'})
   }
 })

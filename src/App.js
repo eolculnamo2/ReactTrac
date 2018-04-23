@@ -84,7 +84,6 @@ class App extends React.Component{
       })
     }
     handleChangePage(page,list,ticket,authenticate){
-      console.log(this.state.authenticated)
       this.setState({
                      authenticated: authenticate != undefined ? authenticate : this.state.authenticated,
                      currentPage: this.state.authenticated || authenticate == true ? page : 'login',

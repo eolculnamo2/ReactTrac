@@ -1,0 +1,35 @@
+@import '../../../../scss/variables';
+
+.ticket-form-main{
+  width: 50vw;
+  background-color: white;
+  border: 3px solid $dark;
+  padding: 10px;
+  border-radius: 3px;
+  margin-top: 3vh;
+  position: fixed;
+
+  label{
+    vertical-align: top;
+  }
+  input{
+    width: 45%;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid $lightgrey;
+    &:focus{
+      border: 1px solid $trac-lightgreen;
+    }
+  }
+
+  button{
+    cursor: pointer;
+    padding: 10px;
+    margin: 5px;
+    background-color: $trac-lightred;
+    font-size: 14px;
+    &:nth-child(odd){
+      background-color: $trac-lightgreen;
+    }
+  }
+}

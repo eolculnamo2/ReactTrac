@@ -14,7 +14,6 @@ router.post('/newCategory',(req,res)=>{
 })
 
 router.post('/newTicket',(req,res)=>{
-  console.log("...ticket")
   new Ticket({
     name: "String",
     assignedTo: "String",

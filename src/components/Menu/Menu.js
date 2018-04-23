@@ -19,7 +19,6 @@ class Menu extends React.Component {
         return response.json();
       })
       .then((data)=>{
-        console.log(data.name)
         data.name == 'success' ? this.props.changePage('login') : alert('Logout Error')
       })
     }

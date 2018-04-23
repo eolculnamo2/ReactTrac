@@ -7,6 +7,8 @@
 
   .ticket-essential-info{
     padding: 20px;
+    background-color: $lightgrey;
+    border-radius: 2px;
     span{
       padding: 0px 10px 0px 0px;
     }
@@ -44,6 +46,12 @@
   .comments-section{
     border: 1px dotted $lightgrey;
     width: 75%;
+    h2{
+      background-color: $trac-darkblue;
+      margin: 0;
+      padding: 10px;
+      color: $trac-yellow;
+    }
     .comment{
       border: 1px solid $lightgrey;
       .comment-details{
