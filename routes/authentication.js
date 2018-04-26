@@ -10,11 +10,12 @@ var Strategy = require('passport-local').Strategy;
 //models
 var User = require('../models/User');
 
+router.use(express.static('assets/dist'));
+
 router.use(cookieSession({
-  name: 'Authentication',
-  maxAge: 60*60*1000,
-  secure: false,
-  keys: [process.env.KEY]
+  keys: ["dlskjfhaslfj"],
+  maxAge: 24*60*60*1000,
+  secure: false
 }))
 
 router.use(bodyParser.json());
@@ -42,6 +43,7 @@ router.post('/register', (req, res)=>{
             res.send({
                 name: 'authenticated'
             });
+
         });
         }
     });
@@ -53,9 +55,10 @@ router.post('/register', (req, res)=>{
 
 
 //Login
-router.post('/login', passport.authenticate('local'), function(req, res) {
+router.post('/login', passport.authenticate('local'), (req, res)=>{
   if(req.user){
-
+    console.log(JSON.stringify(req.session))
+  //  res.redirect('/')
     res.send({
       name: 'authenticated'
     });
@@ -70,12 +73,14 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 
 //Logout
 router.get('/logout',(req,res)=>{
+  console.log(JSON.stringify(req.session))
   console.log(JSON.stringify(req.user))
   req.logout();
   res.send({name: 'success'})
 });
 
 router.get('/checkLogin',(req,res)=>{
+  console.log(JSON.stringify(req.session))
   if(req.user){
     res.json({name: 'authenticated'})
   }

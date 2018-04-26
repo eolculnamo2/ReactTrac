@@ -24,65 +24,10 @@ class App extends React.Component{
                 username: "Rob"
               }
             ],
-            tickets: [
-                    {
-                        name: "Change h1 element",
-                        assignedTo: "Rob",
-                        assignedBy: "Bre",
-                        priority: "Low",
-                        createDate: "01/01/2018",
-                        category: 'Styles',
-                        dueDate: "01/01/2019",
-                        status: "open",
-                        description: "Make the h1 element on our homepage something different",
-                        comments: [
-                          {
-                            author: "Rob",
-                            timestamp:"JStimestamp",
-                            status: "Open",
-                            comment: "How about we change the h1 to Hello World?"
-                          },
-                          {
-                            author: "Bre",
-                            timestamp:"JStimestamp",
-                            status: "Open",
-                            comment: "I think Hello WORLD! would be better"
-                          },
-                          {
-                            author: "Rob",
-                            timestamp:"JStimestamp",
-                            status: "In Progress",
-                            comment: "Should we change the color?"
-                          }
-                        ]
-                    },
-                    {
-                        name: "Fix JavaScript Error",
-                        assignedTo: "Rob",
-                        assignedBy: "Bre",
-                        priority: "Medium",
-                        createDate: "01/01/2018",
-                        category: 'Apps',
-                        dueDate: "01/01/2019",
-                        status: "open",
-                        comments: [],
-                        description: "JavaScript keeps breaking on this page!"
-                    },
-                    {
-                        name: "Broken Modal",
-                        assignedTo: "Rob",
-                        assignedBy: "Bre",
-                        priority: "Medium",
-                        createDate: "01/01/2018",
-                        category: 'Styles',
-                        dueDate: "01/01/2019",
-                        status: "open",
-                        comments: [],
-                        description: "Modal does not show when button is clicked. Please fix."
-                    }
-                ]
+            tickets: []
         }
         this.handleChangePage=this.handleChangePage.bind(this);
+        this.updateTickets=this.updateTickets.bind(this);
     }
     componentDidMount(){
       fetch('/authenticate/checkLogin')
@@ -90,8 +35,20 @@ class App extends React.Component{
         return response.json();
       })
       .then((data)=>{
+        console.log(data)
           this.setState({currentPage: data.name == 'authenticated' ? 'categories' : 'login',
                          authenticated: data.name == 'authenticated' ? true : false})
+      })
+      fetch('/posts/getTickets',{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin"
+        })
+      .then((response)=>{
+        return response.json()
+      })
+      .then((data)=>{
+        this.setState({tickets: data})
       })
     }
     handleChangePage(page,list,ticket,authenticate){
@@ -101,6 +58,9 @@ class App extends React.Component{
                      currentList: list != undefined ? list : "",
                      currentTicket: ticket != undefined ? ticket : ""
                    })
+    }
+    updateTickets(x){
+      this.setState({tickets: x},console.log("TICKETS: "+this.state.tickets))
     }
     render(){
         if(this.state.currentPage == "login"){
@@ -125,6 +85,7 @@ class App extends React.Component{
                           users={this.state.users}
                           changePage={this.handleChangePage}
                           tickets={this.state.tickets}
+                          updateTickets={this.updateTickets}
                          />
                     </div>
                 )

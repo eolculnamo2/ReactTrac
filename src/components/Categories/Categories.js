@@ -8,16 +8,13 @@ class Categories extends React.Component{
         this.state={
             categoryArray: [
                 {
-                    categoryName: "Apps",
-                    number: 38
+                    categoryName: "Apps"
                 },
                 {
-                    categoryName: "Styles",
-                    number: 24
+                    categoryName: "Styles"
                 },
                 {
-                    categoryName: "Website",
-                    number: 28
+                    categoryName: "Website"
                 }
             ]
         }
@@ -41,9 +38,10 @@ class Categories extends React.Component{
                             <Category
                                 users={this.props.users}
                                 categoryName={x.categoryName}
-                                ticketNumber={x.number}
+                                tickets={this.props.tickets}
                                 changePage={this.props.changePage.bind(this,'ticket-list', x.categoryName)}
                                 categoryArray={this.state.categoryArray}
+                                updateTickets={this.props.updateTickets}
                                 />
                             </div>
                     )

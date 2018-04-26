@@ -1,8 +1,8 @@
 {
-  "name": "vuetrac",
+  "name": "reacttrac",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "webpack && node server",
     "test": "echo \"Error: no test specified\" && exit 1"

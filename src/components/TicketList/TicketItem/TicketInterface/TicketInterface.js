@@ -8,14 +8,38 @@ class TicketInterface extends React.Component{
       ticket: {}
     }
   }
+
   componentWillMount(){
-    for(var i=0; i < this.props.tickets.length; i++){
-      if(this.props.tickets[i].name == this.props.currentTicket){
-        this.setState({ticket: this.props.tickets[i]});
+    this.updateTicket(this.props);
+  }
+  componentWillReceiveProps(x){
+    this.updateTicket(x);
+  }
+  updateTicket(x){
+    for(var i=0; i < x.tickets.length; i++){
+      if(x.tickets[i].name == x.currentTicket){
+        this.setState({ticket: x.tickets[i]});
         break;
       }
     }
   }
+  submitComment(){
+
+    var load = {
+      status: this.refs.status.value,
+      comment: this.refs.comment.value,
+      ticketId: this.state.ticket._id
+    }
+
+    fetch('/posts/postComment',{
+        method: "POST",
+        body: JSON.stringify(load),
+        headers: { "Content-Type": "application/json" },
+        credentials: "include"
+      })
+
+  }
+
   sideBar(){
     return(
       <div className="side-info-bar">
@@ -58,7 +82,7 @@ class TicketInterface extends React.Component{
            </div>
          )
        })}
-       <select>
+       <select ref='status'>
         <option value="Open">Open</option>
         <option value="In Progress">In Progress</option>
         <option value="Solved">Solved</option>
@@ -66,8 +90,8 @@ class TicketInterface extends React.Component{
         <option value="Test">Test</option>
         <option value="Production">Production</option>
        </select><br/>
-       <textarea className="comment-input" /><br/>
-       <button>
+       <textarea ref='comment' className="comment-input" /><br/>
+       <button onClick={this.submitComment.bind(this)}>
         Submit
        </button>
       </div>

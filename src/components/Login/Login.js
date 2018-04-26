@@ -7,6 +7,7 @@ class Login extends React.Component {
             register: false
         }
     }
+
     handleSubmit(){
         var uri;
         var load;
@@ -32,17 +33,17 @@ class Login extends React.Component {
             method: "POST",
             body: JSON.stringify(load),
             headers: { "Content-Type": "application/json" },
-            credentials: "same-origin"
+            credentials: "include"
           })
         .then((response)=>{
           return response.json()
         })
         .then((data)=>{
+
           if(data.name == 'UserExistsError'){
             alert('User name already exists')
           }
           else if(data.name == 'authenticated'){
-            window.reload;
             this.props.changePage('categories',null,null,true)
           }
           else if(data.name == 'invalid-credentials'){
@@ -51,6 +52,7 @@ class Login extends React.Component {
           else{
             alert('Authentication Error')
           }
+
         })
 
     }
@@ -83,9 +85,9 @@ class Login extends React.Component {
         return(
             <div>
                 <h3>Login:</h3>
-                <input ref='username' />
+                <input name="username" ref='username' />
                 <h3>Password:</h3>
-                <input ref='password' type='password' />
+                <input name="password" ref='password' type='password' />
                 <br/>
                 <button
                     onClick={()=>{this.setState({register: true})}}

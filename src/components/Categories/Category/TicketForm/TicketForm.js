@@ -30,7 +30,7 @@ class TicketForm extends React.Component{
       status: "open",
       description: this.refs.description.value
     }
-    alert(JSON.stringify(submission,null,3))
+
     fetch('/posts/newTicket',{
         method: "POST",
         body: JSON.stringify(submission),
@@ -41,8 +41,7 @@ class TicketForm extends React.Component{
       return response.json()
     })
     .then((data)=>{
-      //Alert confirmation of success or failure
-      console.log("Callback..."+data)
+      this.props.updateTickets(data);
     })
   }
   render(){
