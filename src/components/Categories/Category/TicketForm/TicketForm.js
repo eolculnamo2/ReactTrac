@@ -2,8 +2,49 @@ import React from 'react';
 import './TicketForm.scss';
 
 //Assign to and Categories will be turned into dropdowns populated by db
-
+/*
+TO DO
+STYLE
+ADD PATTERN TO DATE
+VALIDATIONS?
+*/
 class TicketForm extends React.Component{
+  submitForm(){
+    //Each ticket will also need a tag identification.. i.e. APP-322
+
+    /*
+    assigned by back end
+      assignedBy
+      createDate
+    assigned by other process
+      comments
+    */
+
+    //this.setSTate with a submit callback
+    var submission ={
+      name: this.refs.name.value,
+      assignedTo: this.refs.assignedTo.value,
+      priority: this.refs.priority.value,
+      dueDate: this.refs.dueOn.value,
+      category: this.refs.category.value,
+      status: "open",
+      description: this.refs.description.value
+    }
+    alert(JSON.stringify(submission,null,3))
+    fetch('/posts/newTicket',{
+        method: "POST",
+        body: JSON.stringify(submission),
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin"
+      })
+    .then((response)=>{
+      return response.json()
+    })
+    .then((data)=>{
+      //Alert confirmation of success or failure
+      console.log("Callback..."+data)
+    })
+  }
   render(){
     if(this.props.visible){
     return(
@@ -15,62 +56,73 @@ class TicketForm extends React.Component{
           <label>
             Ticket Title:
           </label>
-          <input/>
+          <input ref="name"/>
         </div>
         <div>
           <label>
             Assign To
           </label>
-          <input/>
+          <select ref="assignedTo">
+          {this.props.users.map((x)=>{
+            return (<option value={x.username}>{x.username}</option>)
+          })}
+          </select>
         </div>
         <div>
           <label>
             Due On
           </label>
-          <input/>
+          <input
+            ref="dueOn"
+            placeholder="yyyymmdd"
+            maxlength="8"/>
         </div>
         <div>
           <label>
           Category
           </label>
-          <input/>
+          <select ref="category">
+            {this.props.categoryArray.map((x)=>{
+              return <option value={x.categoryName}>{x.categoryName}</option>
+            })}
+          </select>
         </div>
         <div>
           <label>
             Description
           </label>
-          <textarea />
+          <textarea ref="description"/>
         </div>
         <div>
           <label>
           Priority
           </label>
-          <select>
-            <option>
-            Very Low
-            </option>
-            <option>
-            Low
-            </option>
-            <option>
-            Medium
-            </option>
-            <option>
-            High
-            </option>
-            <option>
-            Highest
-            </option>
-            <option>
-            Urgent
-            </option>
+          <select ref="priority">
+              <option value='very-low'>
+                Very Low
+              </option>
+              <option value='low'>
+                Low
+              </option>
+              <option value='medium'>
+                Medium
+              </option>
+              <option value='high'>
+                High
+              </option>
+              <option value='highest'>
+                Highest
+              </option>
+              <option value='urgent'>
+                Urgent
+              </option>
           </select>
         </div>
 
         <button onClick={this.props.hideTicketForm}>
         Cancel
         </button>
-        <button>
+        <button onClick={this.submitForm.bind(this)}>
         Submit
         </button>
       </div>

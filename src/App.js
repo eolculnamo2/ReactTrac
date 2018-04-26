@@ -13,6 +13,17 @@ class App extends React.Component{
             currentPage: "login",
             currentList: "",
             currentTicket: "",
+            users: [
+              {
+                username: "Joe"
+              },
+              {
+                username: "Bre"
+              },
+              {
+                username: "Rob"
+              }
+            ],
             tickets: [
                     {
                         name: "Change h1 element",
@@ -111,7 +122,9 @@ class App extends React.Component{
                           changePage={this.handleChangePage}
                          />
                         <Categories
+                          users={this.state.users}
                           changePage={this.handleChangePage}
+                          tickets={this.state.tickets}
                          />
                     </div>
                 )

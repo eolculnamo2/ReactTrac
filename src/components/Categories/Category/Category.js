@@ -18,8 +18,10 @@ class Category extends React.Component{
                 <h3 onClick = {this.props.changePage}>{this.props.ticketNumber}</h3>
             </div>
             <TicketForm
+              users={this.props.users}
               hideTicketForm={()=>{this.setState({ticketModal:false})}}
               visible={this.state.ticketModal}
+              categoryArray={this.props.categoryArray}
              />
           </div>
         )

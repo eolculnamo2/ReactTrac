@@ -13,6 +13,6 @@ app.use('/posts', posts);
 
 app.use(express.static('assets/dist'));
 
-app.listen(3000,()=>{
+app.listen(process.env.PORT || 3000,()=>{
     console.log('On...')
 })

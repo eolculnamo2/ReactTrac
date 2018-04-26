@@ -13,6 +13,7 @@ var User = require('../models/User');
 router.use(cookieSession({
   name: 'Authentication',
   maxAge: 60*60*1000,
+  secure: false,
   keys: [process.env.KEY]
 }))
 
@@ -69,6 +70,7 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 
 //Logout
 router.get('/logout',(req,res)=>{
+  console.log(JSON.stringify(req.user))
   req.logout();
   res.send({name: 'success'})
 });

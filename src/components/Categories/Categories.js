@@ -39,9 +39,11 @@ class Categories extends React.Component{
                     return(
                         <div>
                             <Category
+                                users={this.props.users}
                                 categoryName={x.categoryName}
                                 ticketNumber={x.number}
                                 changePage={this.props.changePage.bind(this,'ticket-list', x.categoryName)}
+                                categoryArray={this.state.categoryArray}
                                 />
                             </div>
                     )

@@ -42,6 +42,7 @@ class Login extends React.Component {
             alert('User name already exists')
           }
           else if(data.name == 'authenticated'){
+            window.reload;
             this.props.changePage('categories',null,null,true)
           }
           else if(data.name == 'invalid-credentials'){

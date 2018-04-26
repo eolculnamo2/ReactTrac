@@ -14,6 +14,7 @@ var Ticket = new Schema({
     name: String,
     assignedTo: String,
     assignedBy: String,
+    assignedByID: String,
     priority: String,
     createDate: String,
     dueDate: String,
