@@ -41,7 +41,9 @@ class TicketForm extends React.Component{
       return response.json()
     })
     .then((data)=>{
-      this.props.updateTickets(data);
+      alert(submission.name + " created")
+      this.props.updateTickets();
+      this.props.hideTicketForm();
     })
   }
   render(){

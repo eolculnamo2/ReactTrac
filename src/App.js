@@ -59,8 +59,18 @@ class App extends React.Component{
                      currentTicket: ticket != undefined ? ticket : ""
                    })
     }
-    updateTickets(x){
-      this.setState({tickets: x},console.log("TICKETS: "+this.state.tickets))
+    updateTickets(){
+      fetch('/posts/getTickets',{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin"
+        })
+      .then((response)=>{
+        return response.json()
+      })
+      .then((data)=>{
+        this.setState({tickets: data})
+      })
     }
     render(){
         if(this.state.currentPage == "login"){
@@ -112,6 +122,7 @@ class App extends React.Component{
                           changePage={this.handleChangePage}
                          />
                         <TicketInterface
+                          updateTickets={this.updateTickets}
                           currentList={this.state.currentList}
                           currentTicket={this.state.currentTicket}
                           tickets={this.state.tickets}

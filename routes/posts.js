@@ -22,8 +22,8 @@ function returnTickets(nestedResponse){
 
 function getTime(){
   var d = new Date();
-  //timestamp broke... see DB
-  return d.getFullYear()+"/"+d.getMonth()+"/"+d.getDay()+" "+d.getHours()+":"+d.getMinutes();
+  var m = d.getMonth()+1;
+  return d.getFullYear()+"/"+m+"/"+d.getDate()+" "+d.getHours()+":"+d.getMinutes();
 }
 router.post('/newCategory',(req,res)=>{
 
@@ -47,6 +47,7 @@ router.post('/newTicket',(req,res)=>{
     comments: []
   }).save().then(()=>{
     returnTickets(res)
+    //Will call nodemailer function to assignedTo email here
   })
 })
 
@@ -55,18 +56,27 @@ router.post('/getTickets',(req,res)=>{
 })
 
 router.post('/postComment',(req,res)=>{
-  var comment = req.body;
   var timestamp = getTime();
+  console.log(req.body.created)
 
     var newComment = {
-      author: "Testuser(req.user.usernam)",
+      author: "req.user.username",
       timestamp: timestamp,
       status: req.body.status,
       comment: req.body.comment
     }
 
-    Ticket.findOneAndUpdate({id: comment.id}, {$push: {comments: newComment}},(err,newInfo)=>{
-      console.log("New Ticket "+ JSON.stringify(newInfo,null,3))
+    Ticket.findOneAndUpdate({createDate: req.body.created, assignedBy: req.body.assignedBy}, {$push: {comments: newComment}},(err,newInfo)=>{
+      if(err){
+        console.log(err)
+        res.send({status: "fail"})
+      }
+      else{
+        console.log("New Ticket "+ JSON.stringify(newInfo,null,3))
+        console.log("ID: "+req.body.ticketId)
+        console.log(JSON.stringify("NC: "+newComment))
+        res.send({status: "success"})
+      }
     })
 })
 

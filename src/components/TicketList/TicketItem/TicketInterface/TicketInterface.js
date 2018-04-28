@@ -28,7 +28,9 @@ class TicketInterface extends React.Component{
     var load = {
       status: this.refs.status.value,
       comment: this.refs.comment.value,
-      ticketId: this.state.ticket._id
+      ticketId: this.state.ticket._id,
+      created: this.state.ticket.createDate,
+      assignedBy: this.state.ticket.assignedBy
     }
 
     fetch('/posts/postComment',{
@@ -36,6 +38,18 @@ class TicketInterface extends React.Component{
         body: JSON.stringify(load),
         headers: { "Content-Type": "application/json" },
         credentials: "include"
+      })
+      .then((response)=>{
+        return response.json();
+      })
+      .then((data)=>{
+        if(data.status == "success"){
+          alert("Save Successful")
+        }
+        else{
+          alert("Comment Error")
+        }
+        this.props.updateTickets();
       })
 
   }
@@ -106,11 +120,11 @@ class TicketInterface extends React.Component{
               {this.state.ticket.name}
             </h1>
             <span>
-              Opened:
+              <b>Opened: </b>
               {this.state.ticket.createDate}
             </span>
             <span>
-              Due:
+              <b>Due: </b>
               {this.state.ticket.dueDate}
             </span>
             <p>
