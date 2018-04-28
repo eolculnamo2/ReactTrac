@@ -1,0 +1,34 @@
+@import '../../scss/variables';
+
+.login-main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h3{
+    font-family: 'Trebuchet MS';
+  }
+  input{
+    padding: 5px 10px;
+    font-size: 14px;
+    font-family: 'Trebuchet MS';
+    border-radius: 3px;
+    border: 1px solid $trac-grey;
+    &:focus{
+      outline: none;
+      border: 1px solid $trac-lightblue;
+    }
+  }
+  .button-flex{
+    display: flex;
+    justify-content: space-between;
+  }
+  button{
+    cursor: pointer;
+    padding: 5px;
+    border: 0;
+    margin: 2px;
+    border-radius: 3px;
+    width: 100px;
+    background-color: $trac-yellow;
+  }
+}

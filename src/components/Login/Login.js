@@ -1,4 +1,5 @@
 import React from 'react';
+import './Login.scss';
 
 class Login extends React.Component {
     constructor(){
@@ -58,7 +59,7 @@ class Login extends React.Component {
     }
     registration(){
         return(
-            <div>
+            <div className="login-main">
                 <h3>Login:</h3>
                 <input ref='newUser' />
                 <h3>Password:</h3>
@@ -68,37 +69,41 @@ class Login extends React.Component {
                 <h3>Email:</h3>
                 <input ref='email' />
                 <br/>
-                <button
-                   onClick={()=>{this.setState({register: false})}}
-                   >
-                   Back
-                    </button>
-                <button
-                     onClick={this.handleSubmit.bind(this)}
-                    >
-                    Register
-                    </button>
+                <div className="buttons-flex">
+                  <button
+                     onClick={()=>{this.setState({register: false})}}
+                     >
+                     Back
+                      </button>
+                  <button
+                       onClick={this.handleSubmit.bind(this)}
+                      >
+                      Register
+                      </button>
+                </div>
             </div>
             )
     }
     existing(){
         return(
-            <div>
-                <h3>Login:</h3>
+            <div className="login-main">
+                <h3>{"<Login />"}</h3>
                 <input name="username" ref='username' />
-                <h3>Password:</h3>
+                <h3>{"<Password />"}</h3>
                 <input name="password" ref='password' type='password' />
                 <br/>
-                <button
-                    onClick={()=>{this.setState({register: true})}}
-                    >
-                    New User
-                    </button>
-                <button
-                    onClick={this.handleSubmit.bind(this)}
-                    >
-                    Login
-                    </button>
+                <div className="buttons-flex">
+                  <button
+                      onClick={()=>{this.setState({register: true})}}
+                      >
+                      New User
+                      </button>
+                  <button
+                      onClick={this.handleSubmit.bind(this)}
+                      >
+                      Login
+                      </button>
+                  </div>
             </div>
             )
     }
