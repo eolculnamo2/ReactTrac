@@ -8,9 +8,16 @@
     h3{
         padding: 5px 15px;
         color: $dark;
+        width: 33%;
         cursor: pointer;
         &:hover{
             color: $trac-red;
         }
+    }
+    .center{
+        text-align: center;
+    }
+    .right{
+      text-align: right;
     }
 }

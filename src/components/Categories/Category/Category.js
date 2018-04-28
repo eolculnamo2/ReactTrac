@@ -31,8 +31,8 @@ class Category extends React.Component{
           <div>
             <div className = "category">
                 <h3 onClick = {this.props.changePage}>{this.props.categoryName}</h3>
-                <h3 onClick={()=>{this.setState({ticketModal: true})}}>New Ticket</h3>
-                <h3 onClick = {this.props.changePage}>{this.state.counter}</h3>
+                <h3 className="center" onClick={()=>{this.setState({ticketModal: true})}}>New Ticket</h3>
+                <h3 className="right" onClick = {this.props.changePage}>{this.state.counter}</h3>
             </div>
             <TicketForm
               users={this.props.users}
