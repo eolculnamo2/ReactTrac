@@ -32,6 +32,9 @@ class Categories extends React.Component{
     mapArray(){
         return(
             <div className="categories-main-div">
+              <h1>
+                Dashboard
+                </h1>
                 {this.state.categoryArray.map((x,i)=>{
                     return(
                         <div>

@@ -29,13 +29,21 @@ class App extends React.Component{
         this.handleChangePage=this.handleChangePage.bind(this);
         this.updateTickets=this.updateTickets.bind(this);
     }
-    componentDidMount(){
-      fetch('/authenticate/checkLogin')
+    componentWillMount(){
+      fetch("/authenticate/checkLogin",
+       {
+           method: "get",
+           headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json',
+               'Cache': 'no-cache'
+             },
+             credentials: 'same-origin'
+       })
       .then((response)=>{
         return response.json();
       })
       .then((data)=>{
-        console.log(data)
           this.setState({currentPage: data.name == 'authenticated' ? 'categories' : 'login',
                          authenticated: data.name == 'authenticated' ? true : false})
       })

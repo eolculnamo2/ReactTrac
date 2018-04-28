@@ -6,6 +6,9 @@ class TicketList extends React.Component{
     render(){
         return(
             <div className="ticketlist-main-div">
+              <h1>
+                {this.props.currentList}
+                </h1>
                 {this.props.tickets.map((x)=>{
                   if(x.category == this.props.currentList)
                     return(

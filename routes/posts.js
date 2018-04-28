@@ -30,14 +30,15 @@ router.post('/newCategory',(req,res)=>{
 })
 
 router.post('/newTicket',(req,res)=>{
+  console.log(req.session)
   var submission = req.body;
   var timestamp = getTime();
 
   new Ticket({
     name: submission.name,
     assignedTo: submission.assignedTo,
-    assignedBy: "req.user.username",
-    assignedByID: "req.user.id",
+    assignedBy: req.user.username,
+    assignedByID: req.user.id,
     priority: submission.priority,
     createDate: timestamp,
     dueDate: submission.dueDate,
@@ -57,10 +58,9 @@ router.post('/getTickets',(req,res)=>{
 
 router.post('/postComment',(req,res)=>{
   var timestamp = getTime();
-  console.log(req.body.created)
 
     var newComment = {
-      author: "req.user.username",
+      author: req.user.username,
       timestamp: timestamp,
       status: req.body.status,
       comment: req.body.comment
@@ -72,9 +72,6 @@ router.post('/postComment',(req,res)=>{
         res.send({status: "fail"})
       }
       else{
-        console.log("New Ticket "+ JSON.stringify(newInfo,null,3))
-        console.log("ID: "+req.body.ticketId)
-        console.log(JSON.stringify("NC: "+newComment))
         res.send({status: "success"})
       }
     })

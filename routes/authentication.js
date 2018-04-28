@@ -1,9 +1,10 @@
 var LocalStrategy = require('passport-local');
 var mongoose = require('mongoose');
-var cookieSession = require('cookie-session');
+var session = require('express-session');
 var bodyParser = require('body-parser')
 var express = require('express');
 var passport = require('passport');
+var flash = require('connect-flash');
 var router = express.Router();
 var Strategy = require('passport-local').Strategy;
 
@@ -12,16 +13,9 @@ var User = require('../models/User');
 
 router.use(express.static('assets/dist'));
 
-router.use(cookieSession({
-  keys: ["dlskjfhaslfj"],
-  maxAge: 24*60*60*1000,
-  secure: false
-}))
-
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
-router.use(passport.initialize());
-router.use(passport.session());
+router.use(flash());
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
@@ -40,47 +34,37 @@ router.post('/register', (req, res)=>{
         }
         else{
         passport.authenticate('local')(req, res, ()=>{
-            res.send({
-                name: 'authenticated'
-            });
-
+            res.send({name: 'authenticated'});
         });
         }
     });
   }
   else{
-    res.send("Passwords Do Not Match");
+    res.send({name: "invalid-credentials"});
   }
 });
 
-
 //Login
-router.post('/login', passport.authenticate('local'), (req, res)=>{
+router.post('/login', passport.authenticate('local'),(req, res)=>{
   if(req.user){
-    console.log(JSON.stringify(req.session))
-  //  res.redirect('/')
-    res.send({
-      name: 'authenticated'
-    });
-
+      res.send({
+        name: 'authenticated'
+      });
   }
   else{
     res.send({
       name: 'invalid-credentials'
-    })
+    });
   }
 });
 
 //Logout
 router.get('/logout',(req,res)=>{
-  console.log(JSON.stringify(req.session))
-  console.log(JSON.stringify(req.user))
   req.logout();
   res.send({name: 'success'})
 });
 
 router.get('/checkLogin',(req,res)=>{
-  console.log(JSON.stringify(req.session))
   if(req.user){
     res.json({name: 'authenticated'})
   }

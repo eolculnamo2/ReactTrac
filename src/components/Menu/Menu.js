@@ -3,7 +3,16 @@ import './Menu.scss';
 
 class Menu extends React.Component {
     logout(){
-      fetch('/authenticate/logout')
+      fetch('/authenticate/logout',
+       {
+           method: "get",
+           headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json',
+               'Cache': 'no-cache'
+             },
+             credentials: 'same-origin'
+       })
       .then((response)=>{
         return response.json();
       })
