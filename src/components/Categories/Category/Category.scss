@@ -8,10 +8,11 @@
     h3{
         padding: 5px 15px;
         color: $dark;
+        text-transform: capitalize;
         cursor: pointer;
         &:hover{
             color: $trac-red;
         }
     }
-    //right and center coe from TicketItem.scss... Share the same category class 
+    //right and center coe from TicketItem.scss... Share the same category class
 }

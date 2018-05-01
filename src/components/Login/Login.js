@@ -8,7 +8,14 @@ class Login extends React.Component {
             register: false
         }
     }
-
+    componentDidMount(){
+      window.addEventListener('keypress',(e)=>{
+          var press = e.which || e.keycode;
+          if(press == 13){
+            this.handleSubmit();
+          }
+      });
+    }
     handleSubmit(){
         var uri;
         var load;
@@ -45,17 +52,8 @@ class Login extends React.Component {
           }
         })
         .then((data)=>{
-          if(data.name == 'UserExistsError'){
-            alert('User name already exists')
-          }
-          else if(data.name == 'authenticated'){
+          if(data.name == 'authenticated'){
             this.props.changePage('categories',null,null,true)
-          }
-          else if(data.name == 'invalid-credentials'){
-            alert('Invalid Credentials')
-          }
-          else{
-            alert('Authentication Error')
           }
         })
 
