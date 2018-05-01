@@ -3,8 +3,11 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var Category = require('../models/Category');
-var Ticket = require('../models/Ticket');
 var email = require('./mailer');
+
+//imported models
+var Ticket = require('../models/Ticket');
+var User = require('../models/User');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
@@ -56,17 +59,29 @@ router.post('/getTickets',(req,res)=>{
   returnTickets(res)
 })
 
+router.post('/getUsers',(req,res)=>{
+  User.find({},(err,users)=>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      res.send(users);
+    }
+  })
+})
 router.post('/postComment',(req,res)=>{
   var timestamp = getTime();
 
     var newComment = {
       author: req.user.username,
+      assignedTo: req.body.assignedTo,
       timestamp: timestamp,
       status: req.body.status,
       comment: req.body.comment
     }
-
-    Ticket.findOneAndUpdate({createDate: req.body.created, assignedBy: req.body.assignedBy}, {$push: {comments: newComment}},(err,newInfo)=>{
+console.log(req.body.assignedTo)
+    Ticket.findOneAndUpdate({createDate: req.body.created,
+                            assignedBy: req.body.assignedBy}, {$push: {comments: newComment},$set: {assignedTo: req.body.assignedTo}},{new: true},(err,newInfo)=>{
       if(err){
         console.log(err)
         res.send({status: "fail"})

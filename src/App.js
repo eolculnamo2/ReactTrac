@@ -13,17 +13,7 @@ class App extends React.Component{
             currentPage: "login",
             currentList: "",
             currentTicket: "",
-            users: [
-              {
-                username: "Joe"
-              },
-              {
-                username: "Bre"
-              },
-              {
-                username: "Rob"
-              }
-            ],
+            users: [],
             tickets: []
         }
         this.handleChangePage=this.handleChangePage.bind(this);
@@ -46,7 +36,8 @@ class App extends React.Component{
       .then((data)=>{
           this.setState({currentPage: data.name == 'authenticated' ? 'categories' : 'login',
                          authenticated: data.name == 'authenticated' ? true : false})
-      })
+      });
+
       fetch('/posts/getTickets',{
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -57,7 +48,19 @@ class App extends React.Component{
       })
       .then((data)=>{
         this.setState({tickets: data})
+      });
+
+      fetch('/posts/getUsers',{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin"
+        })
+      .then((response)=>{
+        return response.json()
       })
+      .then((data)=>{
+        this.setState({users: data})
+      });
     }
     handleChangePage(page,list,ticket,authenticate){
       this.setState({
@@ -134,6 +137,7 @@ class App extends React.Component{
                           currentList={this.state.currentList}
                           currentTicket={this.state.currentTicket}
                           tickets={this.state.tickets}
+                          users={this.state.users}
                           changePage={this.handleChangePage}
                          />
                     </div>

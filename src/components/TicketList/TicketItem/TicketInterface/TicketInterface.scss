@@ -37,6 +37,7 @@
       display: inline-block;
       text-align: center;
       width: 45%;
+      text-transform: capitalize;
       span{
         font-weight: 600;
       }
@@ -52,20 +53,35 @@
       padding: 10px;
       color: $trac-yellow;
     }
+    h3{
+      text-align: center;
+      width: 25%;
+      text-transform: capitalize;
+    }
+    .comment-details{
+      display: flex;
+      justify-content: space-between;
+      padding: 0 5px;
+      background-color: $trac-lightblue;
+      &--comments-head{
+        padding: 5px;
+        background-color: $trac-red;
+        color: $trac-darkblue;
+      }
+    }
+
     .comment{
       border: 1px solid $lightgrey;
-      .comment-details{
-        display: flex;
-        justify-content: space-between;
-        padding: 5px;
-        background-color: $trac-lightblue;
-      }
+
       .comment-text{
         padding: 15px;
       }
     }
     .comment-input{
       width: 75%;
+    }
+    label{
+      margin: 0 5px;
     }
     button{
       padding: 10px;

@@ -30,7 +30,8 @@ class TicketInterface extends React.Component{
       comment: this.refs.comment.value,
       ticketId: this.state.ticket._id,
       created: this.state.ticket.createDate,
-      assignedBy: this.state.ticket.assignedBy
+      assignedBy: this.state.ticket.assignedBy,
+      assignedTo: this.refs.assign.value
     }
 
     fetch('/posts/postComment',{
@@ -74,6 +75,20 @@ class TicketInterface extends React.Component{
       <h2>
       Comments
       </h2>
+      <div className="comment-details comment-details--comments-head">
+        <h3>
+          Author
+        </h3>
+        <h3>
+          Status
+        </h3>
+        <h3>
+          Assigned To
+        </h3>
+        <h3>
+          Timestamp
+        </h3>
+      </div>
        {this.state.ticket.comments.map((x)=>{
          return(
            <div className="comment">
@@ -83,6 +98,9 @@ class TicketInterface extends React.Component{
               </h3>
               <h3>
               {x.status}
+              </h3>
+              <h3>
+              {x.assignedTo}
               </h3>
               <h3>
               {x.timestamp}
@@ -96,6 +114,9 @@ class TicketInterface extends React.Component{
            </div>
          )
        })}
+       <label>
+        <b>Status</b>
+       </label>
        <select ref='status'>
         <option value="Open">Open</option>
         <option value="In Progress">In Progress</option>
@@ -103,7 +124,20 @@ class TicketInterface extends React.Component{
         <option value="Closed">Closed</option>
         <option value="Test">Test</option>
         <option value="Production">Production</option>
-       </select><br/>
+       </select>
+       <label>
+        <b>Assign To</b>
+       </label>
+       <select ref='assign'>
+          {this.props.users.map((x)=>{
+            return(
+              <option value={x.username}>
+                {x.username}
+              </option>)
+          })}
+       </select>
+
+       <br/>
        <textarea ref='comment' className="comment-input" /><br/>
        <button onClick={this.submitComment.bind(this)}>
         Submit

@@ -1,3 +1,10 @@
+@import '../../scss/variables';
+
 .categories-main-div{
     margin: 20px 40px;
+    h1{
+      background-color: $trac-yellow;
+      padding: 5px;
+      margin: 0;
+    }
 }
