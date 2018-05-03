@@ -48,7 +48,8 @@ router.post('/register', (req, res)=>{
 router.post('/login', passport.authenticate('local'),(req, res)=>{
   if(req.user){
       res.send({
-        name: 'authenticated'
+        name: 'authenticated',
+        user: req.user
       });
   }
   else{
@@ -66,7 +67,7 @@ router.get('/logout',(req,res)=>{
 
 router.get('/checkLogin',(req,res)=>{
   if(req.user){
-    res.json({name: 'authenticated'})
+    res.json({name: 'authenticated', user: req.user})
   }
   else if(!req.user){
     res.json({name: 'Unauthenticated'})

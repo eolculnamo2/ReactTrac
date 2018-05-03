@@ -25,7 +25,7 @@ class Menu extends React.Component {
             <div className="menu">
                 <h1 onClick={()=>{this.props.changePage('categories')}}>JTrac Clone</h1>
                 <ul className="options">
-                    <li>
+                    <li onClick = {this.props.changePage.bind(this,'ticket-list','My Tickets',null,null,'my-tickets',null)}>
                         My Tickets
                     </li>
                     <li>

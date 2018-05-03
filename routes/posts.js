@@ -33,7 +33,6 @@ router.post('/newCategory',(req,res)=>{
 })
 
 router.post('/newTicket',(req,res)=>{
-  console.log(req.session)
   var submission = req.body;
   var timestamp = getTime();
 
@@ -79,7 +78,7 @@ router.post('/postComment',(req,res)=>{
       status: req.body.status,
       comment: req.body.comment
     }
-console.log(req.body.assignedTo)
+    
     Ticket.findOneAndUpdate({createDate: req.body.created,
                             assignedBy: req.body.assignedBy}, {$push: {comments: newComment},$set: {assignedTo: req.body.assignedTo}},{new: true},(err,newInfo)=>{
       if(err){

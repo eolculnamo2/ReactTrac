@@ -53,7 +53,7 @@ class Login extends React.Component {
         })
         .then((data)=>{
           if(data.name == 'authenticated'){
-            this.props.changePage('categories',null,null,true)
+            this.props.changePage('categories',null,null,true,null,data.user)
           }
         })
 

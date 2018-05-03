@@ -10,10 +10,12 @@ class App extends React.Component{
         super()
         this.state={
             authenticated: false,
+            currentUser: {},
             currentPage: "login",
             currentList: "",
             currentTicket: "",
             users: [],
+            filters: 'none',
             tickets: []
         }
         this.handleChangePage=this.handleChangePage.bind(this);
@@ -35,7 +37,8 @@ class App extends React.Component{
       })
       .then((data)=>{
           this.setState({currentPage: data.name == 'authenticated' ? 'categories' : 'login',
-                         authenticated: data.name == 'authenticated' ? true : false})
+                         authenticated: data.name == 'authenticated' ? true : false,
+                         currentUser: data.user})
       });
 
       fetch('/posts/getTickets',{
@@ -62,12 +65,14 @@ class App extends React.Component{
         this.setState({users: data})
       });
     }
-    handleChangePage(page,list,ticket,authenticate){
+    handleChangePage(page,list,ticket,authenticate,filter,user){
       this.setState({
                      authenticated: authenticate != undefined ? authenticate : this.state.authenticated,
                      currentPage: this.state.authenticated || authenticate == true ? page : 'login',
                      currentList: list != undefined ? list : "",
-                     currentTicket: ticket != undefined ? ticket : ""
+                     currentTicket: ticket != undefined ? ticket : "",
+                     filters: filter != undefined ? filter : 'none',
+                     currentUser: user != undefined ? user: this.state.currentUser
                    })
     }
     updateTickets(){
@@ -120,8 +125,10 @@ class App extends React.Component{
                         <TicketList
                           currentList={this.state.currentList}
                           currentTicket={this.state.currentTicket}
+                          currentUser={this.state.currentUser.username}
                           tickets={this.state.tickets}
                           changePage={this.handleChangePage}
+                          filter={this.state.filters}
                          />
                     </div>
                 )
