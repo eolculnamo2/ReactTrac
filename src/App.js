@@ -94,6 +94,7 @@ class App extends React.Component{
                 <div>
                     <Menu
                       changePage={this.handleChangePage}
+                      currentPage={this.state.currentPage}
                       />
                     <Login
                       changePage={this.handleChangePage}
