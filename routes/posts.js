@@ -8,6 +8,7 @@ var email = require('./mailer');
 //imported models
 var Ticket = require('../models/Ticket');
 var User = require('../models/User');
+var Category = require('../models/Category');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
@@ -23,14 +24,22 @@ function returnTickets(nestedResponse){
   })
 }
 
+function returnCategories(nestedResponse){
+  Category.find({},(err,categories)=>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      nestedResponse.send(categories);
+    }
+  })
+}
+
 function getTime(){
   var d = new Date();
   var m = d.getMonth()+1;
   return d.getFullYear()+"/"+m+"/"+d.getDate()+" "+d.getHours()+":"+d.getMinutes();
 }
-router.post('/newCategory',(req,res)=>{
-
-})
 
 router.post('/newTicket',(req,res)=>{
   var submission = req.body;
@@ -49,13 +58,13 @@ router.post('/newTicket',(req,res)=>{
     description: submission.description,
     comments: []
   }).save().then(()=>{
-    returnTickets(res)
+    returnTickets(res);
     //Will call nodemailer function to assignedTo email here
   })
 })
 
 router.post('/getTickets',(req,res)=>{
-  returnTickets(res)
+  returnTickets(res);
 })
 
 router.post('/getUsers',(req,res)=>{
@@ -68,6 +77,7 @@ router.post('/getUsers',(req,res)=>{
     }
   })
 })
+
 router.post('/postComment',(req,res)=>{
   var timestamp = getTime();
 
@@ -78,7 +88,7 @@ router.post('/postComment',(req,res)=>{
       status: req.body.status,
       comment: req.body.comment
     }
-    
+
     Ticket.findOneAndUpdate({createDate: req.body.created,
                             assignedBy: req.body.assignedBy}, {$push: {comments: newComment},$set: {assignedTo: req.body.assignedTo}},{new: true},(err,newInfo)=>{
       if(err){
@@ -89,6 +99,16 @@ router.post('/postComment',(req,res)=>{
         res.send({status: "success"})
       }
     })
+})
+
+router.post('/addCategory',(req,res)=>{
+  new Category({name: req.body.categoryName}).save().then(()=>{
+    returnCategories(res);
+  })
+})
+
+router.post('/getCategories',(req,res)=>{
+  returnCategories(res);
 })
 
 module.exports=router;

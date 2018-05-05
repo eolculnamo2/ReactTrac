@@ -14,12 +14,14 @@ class App extends React.Component{
             currentPage: "login",
             currentList: "",
             currentTicket: "",
+            categories: [],
             users: [],
             filters: 'none',
             tickets: []
         }
         this.handleChangePage=this.handleChangePage.bind(this);
         this.updateTickets=this.updateTickets.bind(this);
+        this.updateCategories=this.updateCategories.bind(this);
     }
     componentWillMount(){
       fetch("/authenticate/checkLogin",
@@ -53,6 +55,18 @@ class App extends React.Component{
         this.setState({tickets: data})
       });
 
+      fetch('/posts/getCategories',{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin"
+        })
+      .then((response)=>{
+        return response.json()
+      })
+      .then((data)=>{
+        this.setState({categories: data})
+      });
+
       fetch('/posts/getUsers',{
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -65,6 +79,7 @@ class App extends React.Component{
         this.setState({users: data})
       });
     }
+
     handleChangePage(page,list,ticket,authenticate,filter,user){
       this.setState({
                      authenticated: authenticate != undefined ? authenticate : this.state.authenticated,
@@ -75,6 +90,7 @@ class App extends React.Component{
                      currentUser: user != undefined ? user: this.state.currentUser
                    })
     }
+
     updateTickets(){
       fetch('/posts/getTickets',{
           method: "POST",
@@ -86,8 +102,23 @@ class App extends React.Component{
       })
       .then((data)=>{
         this.setState({tickets: data})
-      })
+      });
     }
+
+    updateCategories(){
+      fetch('/posts/getCategories',{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin"
+        })
+      .then((response)=>{
+        return response.json()
+      })
+      .then((data)=>{
+        this.setState({categories: data})
+      });
+    }
+
     render(){
         if(this.state.currentPage == "login"){
         return(
@@ -113,6 +144,8 @@ class App extends React.Component{
                           changePage={this.handleChangePage}
                           tickets={this.state.tickets}
                           updateTickets={this.updateTickets}
+                          updateCategories={this.updateCategories}
+                          categories={this.state.categories}
                          />
                     </div>
                 )

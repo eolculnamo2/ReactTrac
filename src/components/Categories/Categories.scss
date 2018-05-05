@@ -3,9 +3,24 @@
 .categories-main-div{
     margin: 20px 40px;
     h1{
-      background-color: $trac-yellow;
-      padding: 5px;
+      padding: 5px 0;
       margin: 0;
       text-transform: capitalize;
+    }
+
+    .flex-between{
+      display: flex;
+      justify-content: space-between;
+      button{
+        background-color: $trac-green;
+        padding: 5px;
+        border: 0;
+        margin: 5px 0;
+        font-size: 12px;
+        &:hover{
+          opacity: .8;
+          cursor: pointer;
+        }
+      }
     }
 }

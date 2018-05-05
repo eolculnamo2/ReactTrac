@@ -14,5 +14,13 @@
             color: $trac-red;
         }
     }
+
+    &--main{
+      background-color: $trac-grey !important;
+      h3{
+        cursor: initial !important;
+        color: $trac-darkblue !important;
+      }
+    }
     //right and center coe from TicketItem.scss... Share the same category class
 }
