@@ -84,7 +84,7 @@ class TicketForm extends React.Component{
           </label>
           <select ref="category">
             {this.props.categoryArray.map((x)=>{
-              return <option value={x.categoryName}>{x.categoryName}</option>
+              return <option value={x.name}>{x.name}</option>
             })}
           </select>
         </div>

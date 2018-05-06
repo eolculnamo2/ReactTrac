@@ -33,26 +33,27 @@ class TicketInterface extends React.Component{
       assignedBy: this.state.ticket.assignedBy,
       assignedTo: this.refs.assign.value
     }
-
-    fetch('/posts/postComment',{
-        method: "POST",
-        body: JSON.stringify(load),
-        headers: { "Content-Type": "application/json" },
-        credentials: "include"
-      })
-      .then((response)=>{
-        return response.json();
-      })
-      .then((data)=>{
-        if(data.status == "success"){
-          alert("Save Successful")
-        }
-        else{
-          alert("Comment Error")
-        }
-        this.props.updateTickets();
-      })
-
+    
+    if(this.refs.comment.value.length > 0){
+      fetch('/posts/postComment',{
+          method: "POST",
+          body: JSON.stringify(load),
+          headers: { "Content-Type": "application/json" },
+          credentials: "include"
+        })
+        .then((response)=>{
+          return response.json();
+        })
+        .then((data)=>{
+          if(data.status == "success"){
+            alert("Save Successful")
+          }
+          else{
+            alert("Comment Error")
+          }
+          this.props.updateTickets();
+        })
+      }
   }
 
   sideBar(){

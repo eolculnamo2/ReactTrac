@@ -3,26 +3,10 @@ import Category from './Category/Category';
 import './Categories.scss';
 
 class Categories extends React.Component{
-    constructor(){
-        super()
-        this.state={
-            categoryArray: [
-                {
-                    categoryName: "Apps"
-                },
-                {
-                    categoryName: "Styles"
-                },
-                {
-                    categoryName: "Website"
-                }
-            ]
-        }
-    }
     addCategory(){
       var newCat = prompt("New Category Name: ");
       var load = {categoryName: newCat}
-
+      if(newCat != null && newCat.length > 0){
           fetch('/posts/addCategory',{
               method: "POST",
               body: JSON.stringify(load),
@@ -41,8 +25,9 @@ class Categories extends React.Component{
             .then((data)=>{
               this.props.updateCategories();
             })
-
+          }
     }
+
     mapArray(){
         return(
             <div className="categories-main-div">
@@ -72,7 +57,7 @@ class Categories extends React.Component{
                                 users={this.props.users}
                                 categoryName={x.name}
                                 tickets={this.props.tickets}
-                                changePage={this.props.changePage.bind(this,'ticket-list', x.categoryName)}
+                                changePage={this.props.changePage.bind(this,'ticket-list', x.name)}
                                 categoryArray={this.props.categories}
                                 updateTickets={this.props.updateTickets}
                                 />
