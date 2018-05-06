@@ -33,7 +33,7 @@ class TicketInterface extends React.Component{
       assignedBy: this.state.ticket.assignedBy,
       assignedTo: this.refs.assign.value
     }
-    
+
     if(this.refs.comment.value.length > 0){
       fetch('/posts/postComment',{
           method: "POST",
@@ -52,6 +52,12 @@ class TicketInterface extends React.Component{
             alert("Comment Error")
           }
           this.props.updateTickets();
+          fetch('/email/ticketUpdate',{
+              method: "POST",
+              body: JSON.stringify(load),
+              headers: { "Content-Type": "application/json" },
+              credentials: "include"
+            })
         })
       }
   }

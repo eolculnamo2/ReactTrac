@@ -43,7 +43,7 @@ class Menu extends React.Component {
     render(){
         return(
             <div className="menu">
-                <h1 onClick={()=>{this.props.changePage('categories')}}>JTrac Clone</h1>
+                <h1 onClick={()=>{this.props.changePage('categories')}}>ReactTrac</h1>
                 {this.showMenu()}
             </div>
         )

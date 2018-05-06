@@ -53,6 +53,14 @@ class Login extends React.Component {
         })
         .then((data)=>{
           if(data.name == 'authenticated'){
+              if(uri == '/authenticate/register'){
+                fetch('/email/welcomeUser',{
+                    method: "POST",
+                    body: JSON.stringify(load),
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "same-origin"
+                  })
+              }
             this.props.changePage('categories',null,null,true,null,data.user)
           }
         })

@@ -1,6 +1,4 @@
 require('dotenv').config();
-
-
 /*
 Sprint 1: Managing tickets full stack
 Sprint 2: Add different teams(More than one team can use app)
@@ -13,6 +11,7 @@ var app = express();
 //routes
 var authentication = require('./routes/authentication');
 var routes = require('./routes/routes');
+var emails = require('./routes/emails');
 var posts = require('./routes/posts');
 
 app.use(express.static('assets/dist'));
@@ -27,6 +26,7 @@ app.use(passport.session());
 app.use('/authenticate', authentication);
 app.use('/', routes);
 app.use('/posts', posts);
+app.use('/email', emails);
 
 
 
