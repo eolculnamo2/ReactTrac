@@ -15,11 +15,15 @@ body{
         align-self: center;
         cursor: pointer;
     }
+    .options-main{
+      @media screen and (min-width: 600px){
+        width: 60%;
+      }
+    }
     .options{
         display: flex;
         list-style-type: none;
         justify-content: space-around;
-        width: 50%;
         li{
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             cursor: pointer;
@@ -28,5 +32,17 @@ body{
                 color: $trac-lightblue;
             }
         }
+        @media screen and (max-width: 600px){
+        display: none;
+      }
+    }
+    .mobile{
+      img{
+        width: 50px;
+        cursor: pointer;
+      }
+      @media screen and (min-width: 600px){
+        display: none;
+      }
     }
 }

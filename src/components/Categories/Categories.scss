@@ -21,6 +21,13 @@
           opacity: .8;
           cursor: pointer;
         }
+        @media screen and (max-width: 600px){
+          width: 100%;
+          display: block;
+        }
+      }
+      @media screen and (max-width: 600px){
+        display: block;
       }
     }
 }
