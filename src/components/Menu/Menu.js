@@ -3,6 +3,19 @@ import mobileMenu from '../../../assets/img/hamburger.png';
 import './Menu.scss';
 
 class Menu extends React.Component {
+    componentDidUpdate(){
+      if(document.getElementById("mobile-icon") != undefined){
+        document.body.addEventListener("mouseover",(e)=>{
+          console.log(e.target.nodeName)
+          if(e.target.id == ("dropdown-list") || e.target.id == ("mobile-icon") || e.target.nodeName == ("LI")){
+            document.getElementById("dropdown-list").style.display="block";
+          }
+          else{
+            document.getElementById("dropdown-list").style.display="none";
+          }
+        })
+      }
+    }
     logout(){
       fetch('/authenticate/logout',
        {
@@ -40,7 +53,23 @@ class Menu extends React.Component {
                 </li>
             </ul>
             <div className="mobile">
-              <img src={mobileMenu}/>
+              <div className="mobile-menu">
+                <img id="mobile-icon" src={mobileMenu}/>
+                <ul id="dropdown-list">
+                  <li onClick = {this.props.changePage.bind(this,'ticket-list','My Tickets',null,null,'my-tickets',null)}>
+                    My Tickets
+                  </li>
+                  <li>
+                    Search
+                  </li>
+                  <li>
+                    Settings
+                  </li>
+                  <li onClick = {this.logout.bind(this)}>
+                    Logout
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         )
