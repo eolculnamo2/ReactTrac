@@ -4,7 +4,9 @@
   margin: 20px 40px;
   border: 1px solid $lightgrey;
   border-radius: 2px;
-
+  @media(max-width: 600px){
+    margin: 0;
+  }
   .ticket-essential-info{
     padding: 20px;
     background-color: $lightgrey;
@@ -19,6 +21,10 @@
     width: 100%;
     padding: 5px;
     align-items: flex-start;
+    @media (max-width: 600px){
+      flex-direction: column-reverse;
+      padding: 0;
+    }
   }
 
   .side-info-bar{
@@ -27,7 +33,10 @@
     width: 25%;
     border: 1px solid $lightgrey;
     background-color: $trac-lightblue;
-
+    @media(max-width: 600px){
+      width: 100%;
+      margin: 0;
+    }
     h3{
       padding: 0px 10px;
       text-align: center;
@@ -47,6 +56,9 @@
   .comments-section{
     border: 1px dotted $lightgrey;
     width: 75%;
+    @media(max-width: 600px){
+      width: 100%;
+    }
     h2{
       background-color: $trac-darkblue;
       margin: 0;

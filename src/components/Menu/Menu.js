@@ -6,7 +6,6 @@ class Menu extends React.Component {
     componentDidUpdate(){
       if(document.getElementById("mobile-icon") != undefined){
         document.body.addEventListener("mouseover",(e)=>{
-          console.log(e.target.nodeName)
           if(e.target.id == ("dropdown-list") || e.target.id == ("mobile-icon") || e.target.nodeName == ("LI")){
             document.getElementById("dropdown-list").style.display="block";
           }
